@@ -7,7 +7,6 @@ Original file is located at
     https://colab.research.google.com/drive/1U9SdneS60j_sQ_KNVaQFF9aShV9nmCA4
 """
 
-import folium
 import geopandas as gpd
 import pandas as pd
 
