@@ -14,6 +14,9 @@ import streamlit as st
 import pandas as pd
 import altair as alt
 
+pip install geopandas
+pip install follium 
+
 st.set_page_config(
     page_title="Athéna",
     page_icon="💬",
