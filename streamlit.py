@@ -15,7 +15,6 @@ import streamlit as st
 import streamlit as st
 import pandas as pd
 import altair as alt
-import folium
 import streamlit as st
 
 from streamlit_folium import st_folium
