@@ -8,6 +8,9 @@ Original file is located at
 """
 
 import pandas as pd
+import streamlit as st
+import folium
+from folium import plugins
 
 
 import streamlit as st
