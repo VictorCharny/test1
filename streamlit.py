@@ -52,7 +52,7 @@ with st.sidebar:
     month_list = list(df.Mois.unique())[::-1]
     
     selected_month = st.selectbox('Choisissez un mois', month_list, index=len(month_list)-1)
-    df_selected_month = df[df.Month == selected_month]
+    df_selected_month = df[df.Mois == selected_month]
     
 
     color_theme_list = ['blues', 'cividis', 'greens', 'inferno', 'magma', 'plasma', 'reds', 'rainbow', 'turbo', 'viridis']
