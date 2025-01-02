@@ -49,7 +49,7 @@ for i in range(len(df)):
 with st.sidebar:
     st.title('Messages dans Athena')
     
-    month_list = list(df_.Mois.unique())[::-1]
+    month_list = list(df.Mois.unique())[::-1]
     
     selected_month = st.selectbox('Choisissez un mois', month_list, index=len(month_list)-1)
     df_selected_month = df[df.Month == selected_month]
