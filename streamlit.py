@@ -46,7 +46,7 @@ for i in range(len(df)):
 #zone_filter=st.selectbox("Select a zone",("italie","allemagne","espagne"))
 #df = df[df["zone"] == zone_filter]
 
-time_filter=st.selectbox("select a time",pd.unique(df["Mois"]))
+time_filter=st.selectbox("Choisissez un mois",pd.unique(df["Mois"]))
 df=df[df["Mois"]==time_filter]
 
 col = st.columns((1.5, 4.5, 2), gap='medium')
