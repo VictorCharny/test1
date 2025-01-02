@@ -15,7 +15,8 @@ import streamlit as st
 import streamlit as st
 import pandas as pd
 import altair as alt
-pip install streamlit-folium
+$pip install streamlit-folium
+import folium
 
 
 
