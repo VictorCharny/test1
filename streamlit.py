@@ -150,6 +150,14 @@ def map(data):
 col = st.columns((1.5, 4.5, 2), gap='medium')
 
 
+with col[1]:
+    st.markdown('#### Total Population')
+    
+    choropleth = map(df_selected_mongh)
+    st.plotly_chart(choropleth, use_container_width=True)
+    
+
+
 
 
 
