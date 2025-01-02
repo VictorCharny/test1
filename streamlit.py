@@ -43,6 +43,27 @@ for i in range(len(df)):
   else:
     df.loc[i, "zone"]="espagne"
 
+
+
+
+with st.sidebar:
+    st.title('🏂 US Population Dashboard')
+    
+    year_list = list(df_reshaped.year.unique())[::-1]
+    
+    selected_year = st.selectbox('Select a year', year_list, index=len(year_list)-1)
+    df_selected_year = df_reshaped[df_reshaped.year == selected_year]
+    df_selected_year_sorted = df_selected_year.sort_values(by="population", ascending=False)
+
+    color_theme_list = ['blues', 'cividis', 'greens', 'inferno', 'magma', 'plasma', 'reds', 'rainbow', 'turbo', 'viridis']
+    selected_color_theme = st.selectbox('Select a color theme', color_theme_list)
+
+
+
+
+
+
+
 #zone_filter=st.selectbox("Select a zone",("italie","allemagne","espagne"))
 #df = df[df["zone"] == zone_filter]
 
@@ -53,17 +74,7 @@ col = st.columns((1.5, 4.5, 2), gap='medium')
 
 df
 
-fig_col1, fig_col2 = st.columns(2)
 
-with fig_col2:
-    st.markdown("### Second Chart")
-    fig2 = px.histogram(data_frame=df, x="zone")
-    st.write(fig2)
-
-with fig_col2:
-    st.markdown("### Second Chart")
-    fig2 = px.histogram(data_frame=df, x="zone")
-    st.write(fig2)
 
 st.markdown("### Detailed Data View")
 st.dataframe(df)
@@ -72,7 +83,7 @@ st.dataframe(df)
 
 
 
-df1
+
 
 
 
