@@ -47,13 +47,13 @@ for i in range(len(df)):
 
 
 with st.sidebar:
-    st.title('🏂 US Population Dashboard')
+    st.title('Messages dans Athena')
     
-    year_list = list(df_reshaped.year.unique())[::-1]
+    month_list = list(df_.Mois.unique())[::-1]
     
-    selected_year = st.selectbox('Select a year', year_list, index=len(year_list)-1)
-    df_selected_year = df_reshaped[df_reshaped.year == selected_year]
-    df_selected_year_sorted = df_selected_year.sort_values(by="population", ascending=False)
+    selected_month = st.selectbox('Choisissez un mois', month_list, index=len(month_list)-1)
+    df_selected_month = df[df.Month == selected_month]
+    
 
     color_theme_list = ['blues', 'cividis', 'greens', 'inferno', 'magma', 'plasma', 'reds', 'rainbow', 'turbo', 'viridis']
     selected_color_theme = st.selectbox('Select a color theme', color_theme_list)
