@@ -7,7 +7,9 @@ Original file is located at
     https://colab.research.google.com/drive/1U9SdneS60j_sQ_KNVaQFF9aShV9nmCA4
 """
 
-
+import geopandas as gpd
+import pandas as pd
+import json
 
 import streamlit as st
 import pandas as pd
@@ -57,7 +59,9 @@ with st.sidebar:
 
     color_theme_list = ['blues', 'cividis', 'greens', 'inferno', 'magma', 'plasma', 'reds', 'rainbow', 'turbo', 'viridis']
     selected_color_theme = st.selectbox('Select a color theme', color_theme_list)
-    df=df[df["Mois"]==selected_month]
+
+
+col = st.columns((1.5, 4.5, 2), gap='medium')
 
 
 
