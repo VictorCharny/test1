@@ -16,8 +16,7 @@ import streamlit as st
 import pandas as pd
 import altair as alt
 import streamlit as st
-
-from streamlit_folium import st_folium
+import plotly.express as px
 
 
 
@@ -63,8 +62,7 @@ with st.sidebar:
     df_selected_month = df[df.Mois == selected_month]
     
 
-    color_theme_list = ['blues', 'cividis', 'greens', 'inferno', 'magma', 'plasma', 'reds', 'rainbow', 'turbo', 'viridis']
-    selected_color_theme = st.selectbox('Select a color theme', color_theme_list)
+
 
 
 
@@ -150,14 +148,22 @@ def map(data):
 
 
 
-col = st.columns((1.5, 4.5, 2), gap='medium')
+# create two columns for charts
+fig_col1, fig_col2 = st.columns(2)
 
-
-with col[1]:
-    st.markdown('#### Total Population')
+with fig_col1:
+    st.markdown("### First Chart")
+    fig = px.density_heatmap(
+        data_frame=df, y="age_new", x="marital"
+    )
+    st.write(fig)
+   
+with fig_col2:
+    st.markdown("### Second Chart")
+    fig2 = px.histogram(data_frame=df, x="age_new")
+    st.write(fig2)
     
-    choropleth = map(df_selected_month)
-    st.plotly_chart(choropleth, use_container_width=True)
+    
     
 
 
