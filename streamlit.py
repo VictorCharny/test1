@@ -250,12 +250,21 @@ def map(data):
     fig.update_geos(fitbounds="locations", visible=False)
 
     fig.update_layout(
-    template='plotly_dark',
-    plot_bgcolor='rgba(0, 0, 0, 0)',
-    paper_bgcolor='rgba(0, 0, 0, 0)',
-    margin=dict(l=0, r=0, t=0, b=0),
-    height=350
-    )
+        template='plotly_dark',  # Utilisation du thème sombre
+        plot_bgcolor='rgba(0, 0, 0, 1)',  # Fond du graphique (plus sombre)
+        paper_bgcolor='rgba(0, 0, 0, 1)',  # Fond de la feuille du graphique (plus sombre)
+        font=dict(color='white'),  # Texte en blanc pour plus de contraste
+        xaxis=dict(
+            showgrid=True,  # Afficher la grille sur l'axe X
+            gridcolor='rgba(255, 255, 255, 0.2)'  # Grille légère blanche
+    ),
+        yaxis=dict(
+            showgrid=True,  # Afficher la grille sur l'axe Y
+            gridcolor='rgba(255, 255, 255, 0.2)'  # Grille légère blanche
+    ),
+        margin=dict(l=0, r=0, t=0, b=0),  # Marges
+        height=350
+)
 
 
 
