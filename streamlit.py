@@ -424,6 +424,7 @@ with col1:
 
 
 with col3:
+    st.markdown('#### Heatmap des messages ')
     
 
     # Créer une liste vide pour stocker les résultats
@@ -492,7 +493,7 @@ with col3:
             ).properties(
             width=600,
             height=400,
-            title="Heatmap des messages pour Athena"
+            #title="Heatmap des messages pour Athena"
 )
 
 
@@ -515,7 +516,7 @@ with col1:
     
     
 with col2:
-    st.markdown('#### Augmentations/Pertes')
+    st.markdown('#### Hausses/Baisses')
 
     values1=calcul(df_selected_month)
     values=calculate(df,selected_month)
