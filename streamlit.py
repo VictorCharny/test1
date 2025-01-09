@@ -732,7 +732,7 @@ with col1:
 
 with col3:
     if selected_time=="Heure" or selected_time=="Jour" or selected_time=="Jour":
-        st.markdown(f"###  Table de messages filtré par : {selected_time}")
+        st.markdown(f"###  Table de messages  par : {selected_time}")
 
 
 
