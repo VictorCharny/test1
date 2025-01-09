@@ -409,7 +409,7 @@ with col1:
 
         # Personnalisation du graphique
         fig.update_layout(
-            title="Nombre de messages par Zone et par Mois",
+            #title="Nombre de messages par Zone et par Mois",
             xaxis_title="Mois",
             yaxis_title="Nombre de messages",
             showlegend=True
