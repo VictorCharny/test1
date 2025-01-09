@@ -357,7 +357,7 @@ moyenne_annuelle_zone = moyenne_annuelle_zone.round(2)
                 
 
 with col5:
-    st.metric(label="Nombre de messages total",value=len(df),delta=len(df)
+    st.metric(label="Nombre de messages total",value=len(df),delta=len(df))
 with col1:
     p=len(df)/12
     st.metric(label="Moyenne de messages par mois", value=round(p,2), delta=round(p,2))
