@@ -181,10 +181,6 @@ with st.sidebar:
 
 
 
-
-
-
-
 def map(data):
     # Calcul des occurrences pour chaque zone
     valeur1 = (data["zone"] == "italie").sum()
@@ -736,7 +732,7 @@ with col1:
 
 with col3:
     if selected_time=="Heure" or selected_time=="Jour" or selected_time=="Jour":
-        st.markdown(f"### DataFrame pour le mois {selected_month1} et la zone {selected_zone} trié par {selected_time}")
+        st.markdown(f"### Apperçu de la Table de messages filtré par unité de temps: {selected_time}")
 
 
 
@@ -955,7 +951,7 @@ with col3:
         x=counts.index,
         y=counts.values,
         labels={'x': 'Intervalle de probabilité', 'y': 'Nombre d\'occurrences'},
-        #title="Répartition des probabilité par intervalle"
+        
 )
 
 # Afficher le graphique
