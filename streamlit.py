@@ -172,7 +172,7 @@ with st.sidebar:
         df_selected_zone=df[df.zone== selected_zone]
         dfchat_selected_zone=dfchat[dfchat.zone==selected_zone]
     st.markdown("---")
-    st.sidebar.image("SNCF_Réseau.png")
+    #st.sidebar.image("SNCF_Réseau.png")
 
 
     
