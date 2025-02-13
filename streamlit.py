@@ -343,7 +343,6 @@ with col4:
     st.metric(label="Nombre  d'utilisateurs Espagnol",value=len(data1[data1["Langue"]=="Espagnol"]),delta=len(data1[data1["Langue"]=="Espagnol"]))
 with col5:
     st.metric(label="Nombre  d'utilisateurs Français",value=len(data1[data1["Langue"]=="Français"]),delta=len(data1[data1["Langue"]=="Français"]))
-
 col1,col2,col3,col4,col5=st.columns([1,1,1,1,1],gap="small")
 with col5:
     st.metric(label="Nombre de messages total",value=len(df),delta=len(df))
