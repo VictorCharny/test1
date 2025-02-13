@@ -342,16 +342,9 @@ with col5:
 
 col1,col2,col3,col4,col5=st.columns([1,1,1,1,1],gap="small")
 messages_par_mois_zone = df.groupby(['zone', 'Mois']).size().reset_index(name='Nombre_de_messages')
-
 # Calculer la somme des messages pour chaque zone sur l'année (somme des 12 mois) et diviser par 12 pour la moyenne
 moyenne_annuelle_zone = messages_par_mois_zone.groupby('zone')['Nombre_de_messages'].sum() / 12
 moyenne_annuelle_zone = moyenne_annuelle_zone.round(2)
-
-
-
-
-                
-
 with col5:
     st.metric(label="Nombre de messages total",value=len(df),delta=len(df))
 with col1:
