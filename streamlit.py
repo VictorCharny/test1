@@ -463,9 +463,9 @@ if result:
 col1, col3 = st.columns([1, 1])  # La première et la troisième colonne sont petites, la deuxième est grande
 
 with col1:
-    selected_vision = st.selectbox("Vision globale de l'année par zones ou prédiction", ["Prédiction (modèle ARMA(1,1)))", "Actuelle"], index=1)
+    selected_vision = st.selectbox("Vision annuelle par zones ou prédiction", ["Prédiction (modèle ARMA(1,1))", "Annuelle"], index=1)
 
-    if selected_vision == "actuelle":
+    if selected_vision == "Annuelle":
         # Créer les courbes pour chaque zone
         fig = go.Figure()
         months = ["janvier", "février", "mars", "avril", "mai", "juin", "juillet", "août", "septembre", "octobre", "novembre", "décembre"]
