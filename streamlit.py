@@ -463,7 +463,7 @@ if result:
 col1, col3 = st.columns([1, 1])  # La première et la troisième colonne sont petites, la deuxième est grande
 
 with col1:
-    selected_vision = st.selectbox("Vision globale de l'année par zones ou prédiction totale", ["prédiction", "actuelle"], index=1)
+    selected_vision = st.selectbox("Vision globale de l'année par zones ou prédiction", ["Prédiction (modèle ARMA(1,1)))", "Actuelle"], index=1)
 
     if selected_vision == "actuelle":
         # Créer les courbes pour chaque zone
@@ -500,7 +500,7 @@ with col1:
         prediction_total = df_predict['total'].values  # Inclure la prévision dans les valeurs de total
 
 # Ligne pour la prédiction (par exemple, en pointillé)
-        fig.add_trace(go.Scatter(x=months_with_prediction, y=prediction_total, mode='lines+markers', name="Prédiction Total", line=dict(dash='dot', color='green')))
+        fig.add_trace(go.Scatter(x=months_with_prediction, y=prediction_total, mode='lines+markers', name="Prédiction ", line=dict(dash='dot', color='green')))
 
 # Personnalisation du graphique
         fig.update_layout(
