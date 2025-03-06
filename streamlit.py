@@ -425,7 +425,7 @@ col1,  col3 = st.columns([1, 1])  # La première et la troisième colonne sont p
 
 with col1:
 
-    st.markdown('#### Nombre de messages sur un an par zone ')
+    selected_vision=st.selectbox("Vision globale de l'année par zones ou prédiction totale", ["actuelle","prédiction"],index=1)
 
 
     # Créer une liste vide pour stocker les résultats
