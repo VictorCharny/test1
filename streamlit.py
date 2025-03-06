@@ -431,63 +431,64 @@ with col1:
     # Créer une liste vide pour stocker les résultats
     result = []
 
+    
 
-
-    # Itérer sur tous les mois uniques dans les données
-    for i in month_list:
-        # Filtrer les données pour chaque mois
-        df_month = df[df["Mois"] == i]
+        # Itérer sur tous les mois uniques dans les données
+        for i in month_list:
+            # Filtrer les données pour chaque mois
+            df_month = df[df["Mois"] == i]
         
-        # Débogage pour vérifier si les données existent pour chaque mois
+            # Débogage pour vérifier si les données existent pour chaque mois
         
-        #st.write(df_month.head())  # Afficher un aperçu des données pour chaque mois
+            #st.write(df_month.head())  # Afficher un aperçu des données pour chaque mois
         
-        if not df_month.empty:
-            # Séparer les données par zone (Espagne, Italie, Allemagne)
-            a, b, c = matrice(df_month)
+            if not df_month.empty:
+                # Séparer les données par zone (Espagne, Italie, Allemagne)
+                a, b, c = matrice(df_month)
             
-            # Calculer la longueur des messages dans chaque zone
-            a_length = len(a)  # Longueur des messages en Espagne
-            b_length = len(b)  # Longueur des messages en Italie
-            c_length = len(c)  # Longueur des messages en Allemagne
-            total=a_length+b_length+c_length
+                # Calculer la longueur des messages dans chaque zone
+                a_length = len(a)  # Longueur des messages en Espagne
+                b_length = len(b)  # Longueur des messages en Italie
+                c_length = len(c)  # Longueur des messages en Allemagne
+                total=a_length+b_length+c_length
             
-            # Ajouter ces résultats dans la liste sous forme de ligne [mois, espagne_length, italie_length, allemagne_length]
-            result.append([i, a_length, b_length, c_length,total])
-        else:
-            st.write(f"Aucune donnée pour le mois {i}.")
+                # Ajouter ces résultats dans la liste sous forme de ligne [mois, espagne_length, italie_length, allemagne_length]
+                result.append([i, a_length, b_length, c_length,total])
+            else:
+                st.write(f"Aucune donnée pour le mois {i}.")
 
-    # Convertir la liste en DataFrame
-    if result:
-        df_result = pd.DataFrame(result, columns=["Mois", "Espagne", "Italie", "Allemagne","Total"])
+        # Convertir la liste en DataFrame
+        if result:
+            df_result = pd.DataFrame(result, columns=["Mois", "Espagne", "Italie", "Allemagne","Total"])
 
         # Afficher le DataFrame dans Streamlit
         #st.write("DataFrame des résultats:", df_result)  # Affichage du DataFrame
         #st.dataframe(df_result)  # Affichage interactif
 
         # Créer les courbes pour chaque zone
-        fig = go.Figure()
-        months = ["janvier", "février", "mars", "avril", "mai", "juin", "juillet", "août", "septembre", "octobre", "novembre", "décembre"]
+            fig = go.Figure()
+            months = ["janvier", "février", "mars", "avril", "mai", "juin", "juillet", "août", "septembre", "octobre", "novembre", "décembre"]
 
-        fig.add_trace(go.Scatter(x=months, y=df_result["Espagne"], mode='lines+markers', name="Espagne", line=dict(color='royalblue')))
-        fig.add_trace(go.Scatter(x=months, y=df_result["Italie"], mode='lines+markers', name="Italie", line=dict(color='dodgerblue')))
-        fig.add_trace(go.Scatter(x=months, y=df_result["Allemagne"], mode='lines+markers', name="Allemagne", line=dict(color='skyblue')))
-        fig.add_trace(go.Scatter(x=months, y=df_result["Total"], mode='lines+markers', name="Total", line=dict(dash='dash', color='mediumblue')))
+            fig.add_trace(go.Scatter(x=months, y=df_result["Espagne"], mode='lines+markers', name="Espagne", line=dict(color='royalblue')))
+            fig.add_trace(go.Scatter(x=months, y=df_result["Italie"], mode='lines+markers', name="Italie", line=dict(color='dodgerblue')))
+            fig.add_trace(go.Scatter(x=months, y=df_result["Allemagne"], mode='lines+markers', name="Allemagne", line=dict(color='skyblue')))
+            fig.add_trace(go.Scatter(x=months, y=df_result["Total"], mode='lines+markers', name="Total", line=dict(dash='dash', color='mediumblue')))
 
         # Personnalisation du graphique
-        fig.update_layout(
+            fig.update_layout(
             #title="Nombre de messages par Zone et par Mois",
             xaxis_title="Mois",
             yaxis_title="Nombre de messages",
             showlegend=True
         )
-
+        if selected_vision=="actuelle":
         # Afficher le graphique avec Streamlit
-        st.plotly_chart(fig, use_container_width=True)
+            st.plotly_chart(fig, use_container_width=True)
 
-    else:
-        st.write("Aucun message n'a été trouvé pour les zones et mois spécifiés.")
+        else:
+            st.write("coucou")
 
+else :
 model = SARIMAX((df_result["Total"]), order=(1, 0, 0),seasonal_order=(1, 0, 0, 12))
 model_fit = model.fit()
 next_month_prediction = model_fit.forecast(steps=1)
