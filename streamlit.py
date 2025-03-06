@@ -24,6 +24,17 @@ from streamlit_extras.metric_cards import style_metric_cards
 
 
 
+from statsmodels.tsa.stattools import adfuller
+from statsmodels.tsa.seasonal import seasonal_decompose, STL
+from statsmodels.tsa.stattools import adfuller
+from statsmodels.graphics.tsaplots import plot_acf, plot_pacf
+from statsmodels.tsa.statespace.sarimax import SARIMAX  # Import correct
+
+
+
+
+
+
 
 st.set_page_config(
     page_title="Athéna",
