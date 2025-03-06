@@ -486,32 +486,32 @@ with col1:
         st.plotly_chart(fig, use_container_width=True)
 
     else:
-        # Créer le graphique pour la prédiction
-        fig = go.Figure()
+# Créer le graphique pour la prédiction
+    fig = go.Figure()
 
-        # Mois existants (janvier à décembre) et ajouter le mois prédit
-        months = ["janvier", "février", "mars", "avril", "mai", "juin", "juillet", "août", "septembre", "octobre", "novembre", "décembre"]
+# Mois existants (janvier à décembre) et ajouter le mois prédit
+    months = ["janvier", "février", "mars", "avril", "mai", "juin", "juillet", "août", "septembre", "octobre", "novembre", "décembre"]
 
-        # Ajout des traces pour chaque zone
-        
-        fig.add_trace(go.Scatter(x=months, y=df_result["Total"], mode='lines+markers', name="Total", line=dict(dash='dash', color='mediumblue')))
+# Ajout des traces pour le total des messages pour les 12 premiers mois
+    fig.add_trace(go.Scatter(x=months, y=df_result["Total"], mode='lines+markers', name="Total", line=dict(color='mediumblue')))
 
-        # Ajouter la prévision avec une courbe différente pour le mois prédit
-        months_with_prediction = months + ["prédiction"]  # Ajouter "prédiction" pour le mois suivant
-        prediction_total = df_predict['total'].values  # Inclure la prévision dans les valeurs de total
+# Ajouter la prévision avec une courbe différente pour le mois prédit
+    months_with_prediction = months + ["prédiction"]  # Ajouter "prédiction" pour le mois suivant
+    prediction_total = df_predict['total'].values  # Inclure la prévision dans les valeurs de total
 
-        # Ligne pour la prédiction (par exemple, en pointillé)
-        fig.add_trace(go.Scatter(x=months_with_prediction, y=prediction_total, mode='lines+markers', name="Prédiction Total", line=dict(dash='dot', color='green')))
+# Ligne pour la prédiction (par exemple, en pointillé)
+    fig.add_trace(go.Scatter(x=months_with_prediction, y=prediction_total, mode='lines+markers', name="Prédiction Total", line=dict(dash='dot', color='green')))
 
-        # Personnalisation du graphique
-        fig.update_layout(
-            xaxis_title="Mois",
-            yaxis_title="Nombre de messages",
-            showlegend=True
-        )
+# Personnalisation du graphique
+    fig.update_layout(
+        xaxis_title="Mois",
+        yaxis_title="Nombre de messages",
+        showlegend=True
+)
 
-        # Afficher le graphique avec Streamlit
-        st.plotly_chart(fig, use_container_width=True)
+    # Afficher le graphique avec Streamlit
+    st.plotly_chart(fig, use_container_width=True)
+
 
 
 with col3:
