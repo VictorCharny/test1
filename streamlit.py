@@ -412,6 +412,27 @@ col1,  col3 = st.columns([1, 1])  # La première et la troisième colonne sont p
 
 
 # Code à placer dans la colonne 1
+model = SARIMAX((df_result["Total"]), order=(1, 0, 0),seasonal_order=(1, 0, 0, 12))
+model_fit = model.fit()
+next_month_prediction = model_fit.forecast(steps=1)
+
+# Create the new DataFrame
+df_predict = pd.DataFrame({
+    'mois': range(1, 14),  # Months 1 to 13
+    'total': list(df_result['Total']) + [next_month_prediction.iloc[0]]  # Combine existing totals and the prediction using .iloc[0]
+})
+df_predict
+
+
+
+
+
+
+
+
+
+
+
 with col1:
 
     st.markdown('#### Nombre de messages sur un an par zone ')
