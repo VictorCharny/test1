@@ -63,6 +63,7 @@ shapely
 six
 smmap
 soupsieve
+statsmodels
 st-annotated-text
 st-theme
 streamlit
