@@ -423,80 +423,72 @@ st.markdown("---")
     # Créer une liste vide pour stocker les résultats
 result = []
 
-    
-
-        # Itérer sur tous les mois uniques dans les données
+# Itérer sur tous les mois uniques dans les données
 for i in month_list:
-            # Filtrer les données pour chaque mois
-            df_month = df[df["Mois"] == i]
-        
-            # Débogage pour vérifier si les données existent pour chaque mois
-        
-            #st.write(df_month.head())  # Afficher un aperçu des données pour chaque mois
-        
+    # Filtrer les données pour chaque mois
+    df_month = df[df["Mois"] == i]
+
+    # Débogage pour vérifier si les données existent pour chaque mois
+    # st.write(df_month.head())  # Afficher un aperçu des données pour chaque mois
+
     if not df_month.empty:
-                # Séparer les données par zone (Espagne, Italie, Allemagne)
-                a, b, c = matrice(df_month)
-            
-                # Calculer la longueur des messages dans chaque zone
-                a_length = len(a)  # Longueur des messages en Espagne
-                b_length = len(b)  # Longueur des messages en Italie
-                c_length = len(c)  # Longueur des messages en Allemagne
-                total=a_length+b_length+c_length
-            
-                # Ajouter ces résultats dans la liste sous forme de ligne [mois, espagne_length, italie_length, allemagne_length]
-                result.append([i, a_length, b_length, c_length,total])
+        # Séparer les données par zone (Espagne, Italie, Allemagne)
+        a, b, c = matrice(df_month)
+
+        # Calculer la longueur des messages dans chaque zone
+        a_length = len(a)  # Longueur des messages en Espagne
+        b_length = len(b)  # Longueur des messages en Italie
+        c_length = len(c)  # Longueur des messages en Allemagne
+        total = a_length + b_length + c_length
+
+        # Ajouter ces résultats dans la liste sous forme de ligne [mois, espagne_length, italie_length, allemagne_length]
+        result.append([i, a_length, b_length, c_length, total])
     else:
-                st.write(f"Aucune donnée pour le mois {i}.")
+        st.write(f"Aucune donnée pour le mois {i}.")
 
-        # Convertir la liste en DataFrame
-    if result:
-                df_result = pd.DataFrame(result, columns=["Mois", "Espagne", "Italie", "Allemagne","Total"])
-                model = SARIMAX((df_result["Total"]), order=(1, 0, 0),seasonal_order=(1, 0, 0, 12))
-                model_fit = model.fit()
-                next_month_prediction = model_fit.forecast(steps=1)
+# Convertir la liste en DataFrame
+if result:
+    df_result = pd.DataFrame(result, columns=["Mois", "Espagne", "Italie", "Allemagne", "Total"])
+    model = SARIMAX(df_result["Total"], order=(1, 0, 0), seasonal_order=(1, 0, 0, 12))
+    model_fit = model.fit()
+    next_month_prediction = model_fit.forecast(steps=1)
 
-            # Create the new DataFrame
-                df_predict = pd.DataFrame({
-                'mois': range(1, 14),  # Months 1 to 13
-                'total': list(df_result['Total']) + [next_month_prediction.iloc[0]]  # Combine existing totals and the prediction using .iloc[0]
-                })
-
+    # Create the new DataFrame for prediction
+    df_predict = pd.DataFrame({
+        'mois': list(df_result['Mois']) + [df_result['Mois'].iloc[-1] + 1],  # Adding next month
+        'total': list(df_result['Total']) + [next_month_prediction.iloc[0]]  # Combine existing totals and prediction
+    })
 
 # Créer trois colonnes avec Streamlit
-col1,  col3 = st.columns([1, 1])  # La première et la troisième colonne sont petites, la deuxième est grande
+col1, col3 = st.columns([1, 1])  # La première et la troisième colonne sont petites, la deuxième est grande
 
 with col1:
+    selected_vision = st.selectbox("Vision globale de l'année par zones ou prédiction totale", ["actuelle", "prédiction"], index=1)
 
-    selected_vision=st.selectbox("Vision globale de l'année par zones ou prédiction totale", ["actuelle","prédiction"],index=1)
-    if selected_vision=="actuelle"
-
-
+    if selected_vision == "actuelle":
         # Créer les courbes pour chaque zone
-                fig = go.Figure()
-                months = ["janvier", "février", "mars", "avril", "mai", "juin", "juillet", "août", "septembre", "octobre", "novembre", "décembre"]
+        fig = go.Figure()
+        months = ["janvier", "février", "mars", "avril", "mai", "juin", "juillet", "août", "septembre", "octobre", "novembre", "décembre"]
 
-                fig.add_trace(go.Scatter(x=months, y=df_result["Espagne"], mode='lines+markers', name="Espagne", line=dict(color='royalblue')))
-                fig.add_trace(go.Scatter(x=months, y=df_result["Italie"], mode='lines+markers', name="Italie", line=dict(color='dodgerblue')))
-                fig.add_trace(go.Scatter(x=months, y=df_result["Allemagne"], mode='lines+markers', name="Allemagne", line=dict(color='skyblue')))
-                fig.add_trace(go.Scatter(x=months, y=df_result["Total"], mode='lines+markers', name="Total", line=dict(dash='dash', color='mediumblue')))
+        fig.add_trace(go.Scatter(x=months, y=df_result["Espagne"], mode='lines+markers', name="Espagne", line=dict(color='royalblue')))
+        fig.add_trace(go.Scatter(x=months, y=df_result["Italie"], mode='lines+markers', name="Italie", line=dict(color='dodgerblue')))
+        fig.add_trace(go.Scatter(x=months, y=df_result["Allemagne"], mode='lines+markers', name="Allemagne", line=dict(color='skyblue')))
+        fig.add_trace(go.Scatter(x=months, y=df_result["Total"], mode='lines+markers', name="Total", line=dict(dash='dash', color='mediumblue')))
 
         # Personnalisation du graphique
-                fig.update_layout(
-                #title="Nombre de messages par Zone et par Mois",
-                xaxis_title="Mois",
-                yaxis_title="Nombre de messages",
-                showlegend=True
+        fig.update_layout(
+            xaxis_title="Mois",
+            yaxis_title="Nombre de messages",
+            showlegend=True
         )
 
-
-if selected_vision=="actuelle":
         # Afficher le graphique avec Streamlit
-            st.plotly_chart(fig, use_container_width=True)
+        st.plotly_chart(fig, use_container_width=True)
 
-else:
-            st.write("coucou")
-
+    else:
+        # Affichage de la prédiction (next month)
+        st.write("Prédiction pour le mois suivant:")
+        st.write(df_predict.tail(1))  # Display prediction for the next month
 
 
 
