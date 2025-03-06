@@ -434,7 +434,7 @@ for i in month_list:
         
             #st.write(df_month.head())  # Afficher un aperçu des données pour chaque mois
         
-        if not df_month.empty:
+    if not df_month.empty:
                 # Séparer les données par zone (Espagne, Italie, Allemagne)
                 a, b, c = matrice(df_month)
             
@@ -446,11 +446,11 @@ for i in month_list:
             
                 # Ajouter ces résultats dans la liste sous forme de ligne [mois, espagne_length, italie_length, allemagne_length]
                 result.append([i, a_length, b_length, c_length,total])
-        else:
+    else:
                 st.write(f"Aucune donnée pour le mois {i}.")
 
         # Convertir la liste en DataFrame
-        if result:
+    if result:
                 df_result = pd.DataFrame(result, columns=["Mois", "Espagne", "Italie", "Allemagne","Total"])
                 model = SARIMAX((df_result["Total"]), order=(1, 0, 0),seasonal_order=(1, 0, 0, 12))
                 model_fit = model.fit()
