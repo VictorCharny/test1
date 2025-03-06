@@ -491,11 +491,11 @@ df_predict = pd.DataFrame({
     'total': list(df_result['Total']) + [next_month_prediction.iloc[0]]  # Combine existing totals and the prediction using .iloc[0]
 })
 
-    if selected_vision=="actuelle":
+if selected_vision=="actuelle":
         # Afficher le graphique avec Streamlit
             st.plotly_chart(fig, use_container_width=True)
 
-    else:
+else:
             st.write("coucou")
 
 
