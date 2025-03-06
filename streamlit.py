@@ -413,7 +413,7 @@ col1,  col3 = st.columns([1, 1])  # La première et la troisième colonne sont p
 
 # Code à placer dans la colonne 1
 with col1:
-    selected_model = st.selectbox('Vision globale, prévision mois précédent")
+    selected_model = st.selectbox("Vision globale, prévision mois précédent")
 
     st.markdown('#### Nombre de messages sur un an par zone ')
 
