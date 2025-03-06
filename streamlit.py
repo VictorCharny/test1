@@ -407,11 +407,6 @@ st.markdown("---")
 
 
 
-# Créer trois colonnes avec Streamlit
-col1,  col3 = st.columns([1, 1])  # La première et la troisième colonne sont petites, la deuxième est grande
-
-
-# Code à placer dans la colonne 1
 
 
 
@@ -423,18 +418,15 @@ col1,  col3 = st.columns([1, 1])  # La première et la troisième colonne sont p
 
 
 
-with col1:
-
-    selected_vision=st.selectbox("Vision globale de l'année par zones ou prédiction totale", ["actuelle","prédiction"],index=1)
 
 
     # Créer une liste vide pour stocker les résultats
-    result = []
+result = []
 
     
 
         # Itérer sur tous les mois uniques dans les données
-    for i in month_list:
+for i in month_list:
             # Filtrer les données pour chaque mois
             df_month = df[df["Mois"] == i]
         
@@ -442,7 +434,7 @@ with col1:
         
             #st.write(df_month.head())  # Afficher un aperçu des données pour chaque mois
         
-            if not df_month.empty:
+        if not df_month.empty:
                 # Séparer les données par zone (Espagne, Italie, Allemagne)
                 a, b, c = matrice(df_month)
             
@@ -454,16 +446,31 @@ with col1:
             
                 # Ajouter ces résultats dans la liste sous forme de ligne [mois, espagne_length, italie_length, allemagne_length]
                 result.append([i, a_length, b_length, c_length,total])
-            else:
+        else:
                 st.write(f"Aucune donnée pour le mois {i}.")
 
         # Convertir la liste en DataFrame
-            if result:
+        if result:
                 df_result = pd.DataFrame(result, columns=["Mois", "Espagne", "Italie", "Allemagne","Total"])
+                model = SARIMAX((df_result["Total"]), order=(1, 0, 0),seasonal_order=(1, 0, 0, 12))
+                model_fit = model.fit()
+                next_month_prediction = model_fit.forecast(steps=1)
 
-        # Afficher le DataFrame dans Streamlit
-        #st.write("DataFrame des résultats:", df_result)  # Affichage du DataFrame
-        #st.dataframe(df_result)  # Affichage interactif
+            # Create the new DataFrame
+                df_predict = pd.DataFrame({
+                'mois': range(1, 14),  # Months 1 to 13
+                'total': list(df_result['Total']) + [next_month_prediction.iloc[0]]  # Combine existing totals and the prediction using .iloc[0]
+                })
+
+
+# Créer trois colonnes avec Streamlit
+col1,  col3 = st.columns([1, 1])  # La première et la troisième colonne sont petites, la deuxième est grande
+
+with col1:
+
+    selected_vision=st.selectbox("Vision globale de l'année par zones ou prédiction totale", ["actuelle","prédiction"],index=1)
+    if selected_vision=="actuelle"
+
 
         # Créer les courbes pour chaque zone
                 fig = go.Figure()
@@ -481,15 +488,7 @@ with col1:
                 yaxis_title="Nombre de messages",
                 showlegend=True
         )
-model = SARIMAX((df_result["Total"]), order=(1, 0, 0),seasonal_order=(1, 0, 0, 12))
-model_fit = model.fit()
-next_month_prediction = model_fit.forecast(steps=1)
 
-# Create the new DataFrame
-df_predict = pd.DataFrame({
-    'mois': range(1, 14),  # Months 1 to 13
-    'total': list(df_result['Total']) + [next_month_prediction.iloc[0]]  # Combine existing totals and the prediction using .iloc[0]
-})
 
 if selected_vision=="actuelle":
         # Afficher le graphique avec Streamlit
