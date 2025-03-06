@@ -458,28 +458,28 @@ with col1:
                 st.write(f"Aucune donnée pour le mois {i}.")
 
         # Convertir la liste en DataFrame
-        if result:
-            df_result = pd.DataFrame(result, columns=["Mois", "Espagne", "Italie", "Allemagne","Total"])
+            if result:
+                df_result = pd.DataFrame(result, columns=["Mois", "Espagne", "Italie", "Allemagne","Total"])
 
         # Afficher le DataFrame dans Streamlit
         #st.write("DataFrame des résultats:", df_result)  # Affichage du DataFrame
         #st.dataframe(df_result)  # Affichage interactif
 
         # Créer les courbes pour chaque zone
-            fig = go.Figure()
-            months = ["janvier", "février", "mars", "avril", "mai", "juin", "juillet", "août", "septembre", "octobre", "novembre", "décembre"]
+                fig = go.Figure()
+                months = ["janvier", "février", "mars", "avril", "mai", "juin", "juillet", "août", "septembre", "octobre", "novembre", "décembre"]
 
-            fig.add_trace(go.Scatter(x=months, y=df_result["Espagne"], mode='lines+markers', name="Espagne", line=dict(color='royalblue')))
-            fig.add_trace(go.Scatter(x=months, y=df_result["Italie"], mode='lines+markers', name="Italie", line=dict(color='dodgerblue')))
-            fig.add_trace(go.Scatter(x=months, y=df_result["Allemagne"], mode='lines+markers', name="Allemagne", line=dict(color='skyblue')))
-            fig.add_trace(go.Scatter(x=months, y=df_result["Total"], mode='lines+markers', name="Total", line=dict(dash='dash', color='mediumblue')))
+                fig.add_trace(go.Scatter(x=months, y=df_result["Espagne"], mode='lines+markers', name="Espagne", line=dict(color='royalblue')))
+                fig.add_trace(go.Scatter(x=months, y=df_result["Italie"], mode='lines+markers', name="Italie", line=dict(color='dodgerblue')))
+                fig.add_trace(go.Scatter(x=months, y=df_result["Allemagne"], mode='lines+markers', name="Allemagne", line=dict(color='skyblue')))
+                fig.add_trace(go.Scatter(x=months, y=df_result["Total"], mode='lines+markers', name="Total", line=dict(dash='dash', color='mediumblue')))
 
         # Personnalisation du graphique
-            fig.update_layout(
-            #title="Nombre de messages par Zone et par Mois",
-            xaxis_title="Mois",
-            yaxis_title="Nombre de messages",
-            showlegend=True
+                fig.update_layout(
+                #title="Nombre de messages par Zone et par Mois",
+                xaxis_title="Mois",
+                yaxis_title="Nombre de messages",
+                showlegend=True
         )
 model = SARIMAX((df_result["Total"]), order=(1, 0, 0),seasonal_order=(1, 0, 0, 12))
 model_fit = model.fit()
