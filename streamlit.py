@@ -463,7 +463,7 @@ if result:
 col1, col3 = st.columns([1, 1])  # La première et la troisième colonne sont petites, la deuxième est grande
 
 with col1:
-    selected_vision = st.selectbox("Vision globale de l'année par zones ou prédiction totale", ["actuelle", "prédiction"], index=1)
+    selected_vision = st.selectbox("Vision globale de l'année par zones ou prédiction totale", ["prédiction", "actuelle"], index=1)
 
     if selected_vision == "actuelle":
         # Créer les courbes pour chaque zone
