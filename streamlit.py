@@ -434,7 +434,7 @@ with col1:
     
 
         # Itérer sur tous les mois uniques dans les données
-        for i in month_list:
+    for i in month_list:
             # Filtrer les données pour chaque mois
             df_month = df[df["Mois"] == i]
         
@@ -481,14 +481,6 @@ with col1:
             yaxis_title="Nombre de messages",
             showlegend=True
         )
-        if selected_vision=="actuelle":
-        # Afficher le graphique avec Streamlit
-            st.plotly_chart(fig, use_container_width=True)
-
-        else:
-            st.write("coucou")
-
-else :
 model = SARIMAX((df_result["Total"]), order=(1, 0, 0),seasonal_order=(1, 0, 0, 12))
 model_fit = model.fit()
 next_month_prediction = model_fit.forecast(steps=1)
@@ -498,6 +490,15 @@ df_predict = pd.DataFrame({
     'mois': range(1, 14),  # Months 1 to 13
     'total': list(df_result['Total']) + [next_month_prediction.iloc[0]]  # Combine existing totals and the prediction using .iloc[0]
 })
+
+    if selected_vision=="actuelle":
+        # Afficher le graphique avec Streamlit
+            st.plotly_chart(fig, use_container_width=True)
+
+    else:
+            st.write("coucou")
+
+
 
 
 with col3:
